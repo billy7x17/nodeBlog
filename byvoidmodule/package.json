@@ -1,0 +1,14 @@
+{
+  "name": "byvoidmodule",
+  "version": "0.1.119",
+  "description": "\"for learning\"",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "test"
+  ],
+  "author": "billy119",
+  "license": "ISC"
+}
