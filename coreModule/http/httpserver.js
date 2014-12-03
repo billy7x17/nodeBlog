@@ -7,5 +7,5 @@ server.on('request', function(req, res) {
 	res.write('<h1>Node.js</h1>');
 	res.end('<p>Hello World</p>');
 });
-server.listen(3000);
+server.listen(3001);
 console.log("HTTP server is listening at port 3000.");
