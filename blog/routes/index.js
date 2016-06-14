@@ -5,14 +5,18 @@
 var User = require('../models/user.js');
 var Post = require('../models/post.js');
 var crypto  = require('crypto');
-module.exports = function(app) { 
+module.exports = function(app) {
+	// 时间测试
+	app.get('/hello', function (req, res) {
+		res.send('The time is ' + new Date().toString());
+	})
 	// 主页
 	app.get('/', function(req, res) { 
 		Post.get(null, function(err, posts) { 
 			if (err) { 
 				posts = []; 
 			} 
-			res.render('index', {title: '首页',posts: posts,}); 
+			res.render('index2', {title: '首页',posts: posts,Billytest: 'ejs test'});
 		});
 	}); 
     // 获取注册页面
