@@ -7,6 +7,9 @@
 * 学习Node.js
 * Version 1.0.0.0
 * [Learn Markdown](https://billy119@bitbucket.org/billy119/nodejstest.git)
+* 使用ejs引擎，建立个人博客网站
+    - 有输入页面，使用md语法
+    - 使用vuejs进行展示
 
 ### How do I get set up? ###
 
