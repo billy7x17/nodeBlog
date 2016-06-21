@@ -18,7 +18,17 @@ module.exports = function(app) {
 			} 
 			res.render('index2', {title: '首页',posts: posts,Billytest: 'ejs test'});
 		});
-	}); 
+	});
+
+	// 关于页
+	app.get('/about', function (req, res) {
+		Post.get(null, function(err, posts) {
+			if (err) {
+				posts = [];
+			}
+			res.render('about', {title: '首页',posts: posts,Billytest: 'ejs test'});
+		});
+	});
     // 获取注册页面
 	app.get('/reg', checkNotLogin); 
   	app.get('/reg', function(req, res) { 
