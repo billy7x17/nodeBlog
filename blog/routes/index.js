@@ -5,6 +5,7 @@
 var User = require('../models/user.js');
 var Post = require('../models/post.js');
 var crypto  = require('crypto');
+var markdown = require('../models/micromarkdown.min');
 module.exports = function(app) {
 	// 时间测试
 	app.get('/hello', function (req, res) {
@@ -16,7 +17,7 @@ module.exports = function(app) {
 			if (err) { 
 				posts = []; 
 			} 
-			res.render('index2', {title: '首页',posts: posts,Billytest: 'ejs test'});
+			res.render('index2', {title: '首页',posts: posts,Billytest: 'ejs test', mdContent:markdown.parse('#title test\n - el1')});
 		});
 	});
 
