@@ -26,6 +26,13 @@ Article.prototype.save = function save (callback) {
             return callback(err);
         }
 
-        db.collection
+        db.collection('articles', function (err, collection) {
+            if (err) {
+                mongodb.close();
+                return callback(err);
+            }
+
+            collection.insert()
+        })
     })
 }
