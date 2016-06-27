@@ -1,0 +1,29 @@
+body {
+    background-color: #f4f7f7;
+}
+
+.header-text h4 {
+    color: #454552;
+}
+
+.header-text h1 {
+    color: #e85a71;
+}
+
+#editor,
+#preview {
+    height: 500px;
+    max-height: 500px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.panel {
+    overflow-y: auto;
+    max-height: 500px;
+    padding: 10px;
+}
+
+.container {
+    padding-bottom: 30px;
+}
