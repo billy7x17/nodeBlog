@@ -13,17 +13,17 @@ module.exports = function (app) {
     })
     // 主页
     app.get('/', function (req, res) {
-        Post.get(null, function (err, posts) {
+        Article.get('test1', function (err, articles) {
             if (err) {
-                posts = [];
+                res.flash('error');
             }
             res.render('index2', {
                 title: '首页',
-                posts: posts,
                 Billytest: 'ejs test',
-                mdContent: markdown.parse('#title test\n - el1')
+                mdContent: markdown.parse(articles.content)
             });
-        });
+        })
+
     });
 
     // 文章输入页面进入

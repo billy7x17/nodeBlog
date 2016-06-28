@@ -48,6 +48,8 @@ Article.prototype.save = function save(callback) {
 
 Article.get = function get(title, callback) {
 
+    var mongodb = require('./db');
+
     mongodb.open(function (err, db) {
         if (err) {
             callback(err);
@@ -64,7 +66,7 @@ Article.get = function get(title, callback) {
                 query.title = title;
             }
 
-            collection.find(query).sort({lastUpdateTime: -1}).toArray(function (err, articles) {
+            collection.findOne(function (err, articles) {
                 mongodb.close();
                 if (err) {
                     callback(err, null);
@@ -72,8 +74,7 @@ Article.get = function get(title, callback) {
                     callback(null, articles);
                 }
 
-            })
-
+            });
 
         })
 
