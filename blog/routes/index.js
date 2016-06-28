@@ -55,6 +55,7 @@ module.exports = function (app) {
                 req.flash('error', err);
             }
             req.flash('success', '文章保存成功');
+            res.redirect('/articleInput');
         })
 
 
