@@ -1,32 +1,40 @@
 <link rel="stylesheet" href="stylesheets/input.css">
-<div id="app" class="container">
-    <div class="row">
-        <div class="col-xs-12 header-text">
-            <h1>GitHub Markdown Preview</h1>
-            <h4>coligo.io</h4>
+<form id="inputForm" method="post" action="input">
+    <div id="app" class="container">
+        <div class="row">
+            <div class="col-xs-12 header-text">
+                <h1>GitHub Markdown Preview</h1>
+                <h4>title:</h4>
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-xs-12 col-md-6">
-            <textarea id="editor" class="form-control" v-model="rawMarkdown"></textarea>
+        <div class="row">
+            <div class="col-xs-12">
+                <input type="text" id="title" name="title"/>
+            </div>
         </div>
-        <div id="preview" class="col-xs-12 col-md-6">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <article class="markdown-body">
-                        <!-- note the triple curly braces -->
-                        {{{renderedMarkdown}}}
-                    </article>
+        <div class="row">
+            <div class="col-xs-12 col-md-6">
+                <textarea @keyup="renderPreview" id="editor" name="content" class="form-control"
+                          v-model="rawMarkdown"></textarea>
+            </div>
+            <div id="preview" class="col-xs-12 col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <article class="markdown-body">
+                            <!-- note the triple curly braces -->
+                            {{{renderedMarkdown}}}
+                        </article>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-xs-12">
-            <button type="button" class="btn btn-primary pull-right" @click="renderPreview">Preview</button>
+        <div class="row">
+            <div class="col-xs-12">
+                <button type="submit" class="btn btn-primary pull-right">Save</button>
+            </div>
         </div>
     </div>
-</div>
+</form>
 <script type="text/javascript">
 
     var vm = new Vue({
