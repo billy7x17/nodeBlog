@@ -2,5 +2,7 @@
 <project version="4">
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/blog/app.js" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/blog/models/post.js" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/blog/models/user.js" charset="GBK" />
   </component>
 </project>
