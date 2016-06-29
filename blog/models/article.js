@@ -2,7 +2,6 @@
  * Created by billy on 2016-06-21.
  */
 var mongodb = require('./db');
-var markdown = require('./micromarkdown.min');
 
 function Article(article) {
     this.title = article.title;
@@ -66,7 +65,7 @@ Article.get = function get(title, callback) {
                 query.title = title;
             }
 
-            collection.findOne(function (err, articles) {
+            collection.find().sort({lastUpdateTime: -1}).toArray(function (err, articles) {
                 mongodb.close();
                 if (err) {
                     callback(err, null);
