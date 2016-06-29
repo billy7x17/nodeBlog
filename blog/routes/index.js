@@ -5,7 +5,7 @@ var User = require('../models/user.js');
 var Post = require('../models/post.js');
 var Article = require('../models/article.js');
 var crypto = require('crypto');
-var markdown = require('../models/micromarkdown.min');
+var markdown = require("markdown").markdown;
 module.exports = function (app) {
     // 时间测试
     app.get('/hello', function (req, res) {
@@ -17,10 +17,15 @@ module.exports = function (app) {
             if (err) {
                 res.flash('error');
             }
+
+            for (var i = 0; i < articles.length; i++) {
+                articles[i].content = markdown.toHTML(articles[i].content, "Maruku");
+            }
+
             res.render('index2', {
                 title: '首页',
-                Billytest: 'ejs test',
-                mdContent: markdown.parse(articles.content)
+                Billytest: 'Billy',
+                articles: articles
             });
         })
 

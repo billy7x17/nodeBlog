@@ -1,29 +1,63 @@
 0 info it worked if it ends with ok
-1 verbose cli [ 'F:\\software\\nodejs\\node.exe',
-1 verbose cli   'F:\\software\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
-1 verbose cli   'run-script',
-1 verbose cli   'start' ]
+1 verbose cli [ 'C:\\Program Files\\nodejs\\\\node.exe',
+1 verbose cli   'C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'install',
+1 verbose cli   'markdown' ]
 2 info using npm@1.4.28
 3 info using node@v0.10.33
-4 verbose run-script [ 'prestart', 'start', 'poststart' ]
-5 info prestart application-name@0.0.1
-6 info start application-name@0.0.1
-7 verbose unsafe-perm in lifecycle true
-8 info application-name@0.0.1 Failed to exec start script
-9 error application-name@0.0.1 start: `node app.js`
-9 error Exit status 8
-10 error Failed at the application-name@0.0.1 start script.
-10 error This is most likely a problem with the application-name package,
-10 error not with npm itself.
-10 error Tell the author that this fails on your system:
-10 error     node app.js
-10 error You can get their info via:
-10 error     npm owner ls application-name
-10 error There is likely additional logging output above.
-11 error System Windows_NT 6.1.7601
-12 error command "F:\\software\\nodejs\\node.exe" "F:\\software\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "run-script" "start"
-13 error cwd E:\myCodes\nodetest\blog
-14 error node -v v0.10.33
-15 error npm -v 1.4.28
-16 error code ELIFECYCLE
-17 verbose exit [ 1, true ]
+4 verbose node symlink C:\Program Files\nodejs\\node.exe
+5 verbose readDependencies using package.json deps
+6 verbose cache add [ 'markdown', null ]
+7 verbose cache add name=undefined spec="markdown" args=["markdown",null]
+8 verbose parsed url { protocol: null,
+8 verbose parsed url   slashes: null,
+8 verbose parsed url   auth: null,
+8 verbose parsed url   host: null,
+8 verbose parsed url   port: null,
+8 verbose parsed url   hostname: null,
+8 verbose parsed url   hash: null,
+8 verbose parsed url   search: null,
+8 verbose parsed url   query: null,
+8 verbose parsed url   pathname: 'markdown',
+8 verbose parsed url   path: 'markdown',
+8 verbose parsed url   href: 'markdown' }
+9 silly lockFile 90320b91-markdown markdown
+10 verbose lock markdown C:\Users\Administrator\AppData\Roaming\npm-cache\90320b91-markdown.lock
+11 silly lockFile 90320b91-markdown markdown
+12 silly lockFile 90320b91-markdown markdown
+13 verbose addNamed [ 'markdown', '' ]
+14 verbose addNamed [ null, '*' ]
+15 silly lockFile b808a1dc-markdown markdown@
+16 verbose lock markdown@ C:\Users\Administrator\AppData\Roaming\npm-cache\b808a1dc-markdown.lock
+17 silly addNameRange { name: 'markdown', range: '*', hasData: false }
+18 verbose request where is /markdown
+19 verbose request registry https://registry.npmjs.org/
+20 verbose request id 5eb5c6d7ceb1b46d
+21 verbose url raw /markdown
+22 verbose url resolving [ 'https://registry.npmjs.org/', './markdown' ]
+23 verbose url resolved https://registry.npmjs.org/markdown
+24 verbose request where is https://registry.npmjs.org/markdown
+25 info trying registry request attempt 1 at 17:05:35
+26 http GET https://registry.npmjs.org/markdown
+27 info retry will retry, error on last attempt: Error: tunneling socket could not be established, cause=Parse Error
+28 info trying registry request attempt 2 at 17:05:45
+29 http GET https://registry.npmjs.org/markdown
+30 info retry will retry, error on last attempt: Error: tunneling socket could not be established, cause=Parse Error
+31 info trying registry request attempt 3 at 17:06:45
+32 http GET https://registry.npmjs.org/markdown
+33 silly lockFile b808a1dc-markdown markdown@
+34 silly lockFile b808a1dc-markdown markdown@
+35 error network tunneling socket could not be established, cause=Parse Error
+35 error network This is most likely not a problem with npm itself
+35 error network and is related to network connectivity.
+35 error network In most cases you are behind a proxy or have bad network settings.
+35 error network
+35 error network If you are behind a proxy, please make sure that the
+35 error network 'proxy' config is set properly.  See: 'npm help config'
+36 error System Windows_NT 6.1.7601
+37 error command "C:\\Program Files\\nodejs\\\\node.exe" "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "install" "markdown"
+38 error cwd E:\myCodes\nodetest\blog
+39 error node -v v0.10.33
+40 error npm -v 1.4.28
+41 error code ECONNRESET
+42 verbose exit [ 1, true ]
