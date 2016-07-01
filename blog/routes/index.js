@@ -33,16 +33,10 @@ module.exports = function (app) {
 
     // 文章输入页面进入
     app.get('/articleInput', function (req, res) {
-        Post.get(null, function (err, posts) {
-            if (err) {
-                posts = [];
-            }
-            res.render('input', {
-                title: '首页',
-                posts: posts,
-                Billytest: 'ejs test',
-                mdContent: markdown.parse('#title test\n - el1')
-            });
+        res.render('input', {
+            title: '首页',
+            Billytest: 'ejs test',
+            mdContent: markdown.parse('#title test\n - el1')
         });
     });
     // 文章输入
