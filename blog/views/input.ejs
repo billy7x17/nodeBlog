@@ -45,7 +45,7 @@
         },
         methods: {
             renderPreview: function () {
-                this.renderedMarkdown = micromarkdown.parse(this.rawMarkdown);
+                this.renderedMarkdown = markdown.toHTML(this.rawMarkdown, "Maruku");
             }
         }
     });
