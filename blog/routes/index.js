@@ -35,7 +35,7 @@ module.exports = function (app) {
     app.get('/articleInput', function (req, res) {
         res.render('input', {
             title: '首页',
-            Billytest: 'ejs test',
+            Billytest: 'Billy',
             mdContent: markdown.parse('#title test\n - el1')
         });
     });
