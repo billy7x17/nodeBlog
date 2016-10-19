@@ -57,6 +57,7 @@ module.exports = function (app) {
 
         var article = new Article({
             title: req.body['title'],
+            keywords: req.body['keywords'],
             content: req.body['content'],
             lastUpdateTime: new Date().getTime(),
             location: req.body['location']
