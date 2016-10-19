@@ -1,7 +1,11 @@
 /**
- * Created by billy on 2016-06-21.
+ *  文章定义及数据库操作
+ *
+ *  @author <a href="mailto:billy7x17@gmail.com">billy119</a>
+ *  @version 1.0 2016-06-21 16:28
  */
 var mongodb = require('./db');
+var Uuid = require('uuid');
 
 function Article(article) {
     this.title = article.title;
@@ -19,11 +23,12 @@ Article.prototype.save = function save(callback) {
 
     /* 文章属性 */
     var article = {
+        id: Uuid.v1(),
         title: this.title,
         content: this.content,
         lastUpdateTime: this.lastUpdateTime,
         location: this.location
-    }
+    };
 
     /* 数据库操作 */
     mongodb.open(function (err, db) {
@@ -43,9 +48,9 @@ Article.prototype.save = function save(callback) {
             })
         })
     })
-}
+};
 
-Article.get = function get(title, callback) {
+Article.getAll = function get(callback) {
 
     var mongodb = require('./db');
 
@@ -58,11 +63,6 @@ Article.get = function get(title, callback) {
             if (err) {
                 mongodb.close();
                 callback(err);
-            }
-
-            var query = {};
-            if (title) {
-                query.title = title;
             }
 
             collection.find().sort({lastUpdateTime: -1}).toArray(function (err, articles) {
@@ -79,4 +79,39 @@ Article.get = function get(title, callback) {
 
     })
 
-}
+};
+
+Article.get = function get(uuid, callback) {
+
+    var mongodb = require('./db');
+
+    mongodb.open(function (err, db) {
+        if (err) {
+            callback(err);
+        }
+
+        db.collection('articles', function (err, collection) {
+            if (err) {
+                mongodb.close();
+                callback(err);
+            }
+
+            var query = {
+                id: uuid
+            };
+
+            collection.findOne(query, function (err, article) {
+                mongodb.close();
+                if (err) {
+                    callback(err, null);
+                } else {
+                    callback(null, article);
+                }
+
+            });
+
+        })
+
+    })
+
+};

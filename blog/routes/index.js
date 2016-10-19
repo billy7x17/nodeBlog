@@ -10,10 +10,10 @@ module.exports = function (app) {
     // 时间测试
     app.get('/hello', function (req, res) {
         res.send('The time is ' + new Date().toString());
-    })
+    });
     // 主页
     app.get('/', function (req, res) {
-        Article.get('test1', function (err, articles) {
+        Article.getAll(function (err, articles) {
             if (err) {
                 res.flash('error');
             }
@@ -29,6 +29,19 @@ module.exports = function (app) {
             });
         })
 
+    });
+
+    // 单个文章页
+    app.get('/article/:id', function (req, res) {
+       Article.get(req.params.id,function (err, article) {
+           if (err) {
+               res.flash('error');
+           }
+
+           console.log(article);
+
+           //TODO: 映射模板 res.render
+       })
     });
 
     // 文章输入页面进入
