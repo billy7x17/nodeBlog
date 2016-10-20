@@ -24,8 +24,9 @@ module.exports = function (app) {
 
             res.render('index2', {
                 title: '首页',
-                Billytest: 'Billy',
-                articles: articles
+                homePageTitle: 'Billy',
+                articles: articles,
+                keywords: 'billy119,billy,blog'
             });
         })
 
@@ -33,15 +34,17 @@ module.exports = function (app) {
 
     // 单个文章页
     app.get('/article/:id', function (req, res) {
-       Article.get(req.params.id,function (err, article) {
-           if (err) {
-               res.flash('error');
-           }
+        Article.get(req.params.id, function (err, article) {
+            if (err) {
+                res.flash('error');
+            }
 
-           console.log(article);
-
-           //TODO: 映射模板 res.render
-       })
+            res.render('article', {
+                homePageTitle: 'Billy',
+                article: article,
+                keywords: article.keywords + ',billy119,billy,blog'
+            });
+        })
     });
 
     // 文章输入页面进入
@@ -49,7 +52,8 @@ module.exports = function (app) {
         res.render('input', {
             title: '首页',
             Billytest: 'Billy',
-            mdContent: markdown.parse('#title test\n - el1')
+            mdContent: markdown.parse('#title test\n - el1'),
+            keywords: 'billy119,billy,blog'
         });
     });
     // 文章输入
@@ -79,7 +83,7 @@ module.exports = function (app) {
             if (err) {
                 posts = [];
             }
-            res.render('about', {title: '首页', posts: posts, Billytest: 'ejs test'});
+            res.render('about', {title: '首页', posts: posts, Billytest: 'ejs test', keywords: 'billy119,billy,blog'});
         });
     });
     // 获取注册页面
