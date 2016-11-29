@@ -12,6 +12,7 @@ function Article(article) {
     this.content = article.content;
     this.lastUpdateTime = article.lastUpdateTime;
     this.location = article.location;
+    this.keywords = article.keywords;
 }
 module.exports = Article;
 
@@ -27,7 +28,8 @@ Article.prototype.save = function save(callback) {
         title: this.title,
         content: this.content,
         lastUpdateTime: this.lastUpdateTime,
-        location: this.location
+        location: this.location,
+        keywords: this.keywords
     };
 
     /* 数据库操作 */
