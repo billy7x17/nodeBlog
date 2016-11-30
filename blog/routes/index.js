@@ -39,6 +39,8 @@ module.exports = function (app) {
                 res.flash('error');
             }
 
+            article.content = markdown.toHTML(article.content, "Maruku");
+
             res.render('article', {
                 homePageTitle: 'Billy',
                 article: article,
