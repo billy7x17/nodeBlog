@@ -88,6 +88,22 @@ module.exports = function (app) {
             res.render('about', {title: '首页', posts: posts, Billytest: 'ejs test', keywords: 'billy119,billy,blog'});
         });
     });
+
+    // 联系页
+    app.get('/contact', function (req, res) {
+        res.render('contact', {
+            title: '首页',
+            Billytest: 'Billy',
+            keywords: 'billy119,billy,blog'
+        });
+    });
+
+    // 联系post请求
+    app.post('/contact', function (req, res) {
+       //TODO: 数据持久化
+    });
+
+
     // 获取注册页面
     app.get('/reg', checkNotLogin);
     app.get('/reg', function (req, res) {
