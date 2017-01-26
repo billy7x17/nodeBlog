@@ -5,7 +5,7 @@
  * Created by Billy on 2017/1/25.
  */
 module.exports = {
-    accessKeyId: '',
-    sms_signName: '',
-    sms_templateCode: ''
+    accessKeyId: '3UpLTGggFSiYigKJ',
+    sms_signName: '博客通知',
+    sms_templateCode: 'SMS_44435024'
 };
