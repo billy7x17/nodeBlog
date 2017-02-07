@@ -2,8 +2,9 @@
  * Created by Administrator on 2017/1/26.
  */
 module.exports = pubParam;
-var encoding = require("encoding");
+var Uuid = require('uuid');
 var aliyunSettings = require('../aliyunSettings');
+var crypto = require('crypto');
 function pubParam() {
 
 }
@@ -14,21 +15,48 @@ pubParam.generateSign = function (params) {
 
         var result = new String("");
 
-        for (var char in originString) {
-            if (char in ['A', 'B', 'C']) {//TODO: all words
-                result += originString;
-            }
-            else {
-                result += '%' + originString.charCodeAt().toString(16);
+        // console.log('origin string: ' + originString);
+
+        for (var index in originString) {
+            // console.log('origin char: ' + originString[index]);
+            if (originString[index].match('[A-Za-z0-9\-_\.~]')) {
+                result += originString[index];
+            } else if (originString[index].match('["{:\,}\']')) {
+                result += '%25' + originString[index].charCodeAt(0).toString(16).toUpperCase();
+            } else {
+                // console.log('encode char: ' + '%' + originString[index].charCodeAt(0).toString(16));
+                result += '%' + originString[index].charCodeAt(0).toString(16).toUpperCase();
             }
         }
         return result;
     }
 
+    function generateUTCTime() {
+
+        function fillOneZero(number) {
+            if (number < 10) {
+                return "0" + number;
+            } else {
+                return number;
+            }
+        }
+
+        var date = new Date();
+        var time = date.getUTCFullYear() + '-' + fillOneZero(date.getUTCMonth() + 1) + '-'
+            + fillOneZero(date.getUTCDate()) + 'T' + fillOneZero(date.getUTCHours()) + ':'
+            + fillOneZero(date.getUTCMinutes()) + ':' + fillOneZero(date.getUTCSeconds()) + 'Z';
+        return time;
+    }
+
     /* 配置文件赋值 */
-    params.accessKeyId = aliyunSettings.accessKeyId;
-    params.sms_signName = aliyunSettings.sms_signName;
-    params.sms_templateCode = aliyunSettings.sms_templateCode;
+    params.AccessKeyId = aliyunSettings.accessKeyId;
+    params.SignName = aliyunSettings.sms_signName;
+    params.TemplateCode = aliyunSettings.sms_templateCode;
+    params.Version = aliyunSettings.version;
+    params.SignatureVersion = aliyunSettings.signatureVersion;
+    params.SignatureNonce = Uuid.v4();
+    params.SignatureMethod = aliyunSettings.signatureMethod;
+    params.Timestamp = generateUTCTime();
 
     var signString = "POST&" + percentEncode("/") + "&";
 
@@ -46,11 +74,24 @@ pubParam.generateSign = function (params) {
     console.log('sorted keys:' + sortedKeys);
 
     for (var key in sortedKeys) {
-        signString += sortedKeys[key] + percentEncode("=") + percentEncode(params[sortedKeys[key]]);
+        signString += percentEncode(encodeURIComponent(sortedKeys[key])) + percentEncode("=") + percentEncode(encodeURIComponent(params[sortedKeys[key]]));
+        if (key != sortedKeys.length - 1) {
+            signString += percentEncode("&");
+        }
     }
 
-    return signString;
+    console.log(signString);
+
+    return crypto.createHmac('sha1', aliyunSettings.accessKeySecret + "&").update(signString).digest().toString('base64');
 };
 
-var testStr = pubParam.generateSign({'a': 'avalue', 'b': 'bvalue'});
+console.log(encodeURIComponent('标签测试'));
+
+var testStr = pubParam.generateSign({
+    'Action': 'SingleSendSms',
+    'RecNum': '18842330271',
+    'ParamString': '{"name":"n","emailAddr":"a@gmail.com","subject":"test","msg":"test"}',
+    'Format': 'JSON'
+
+});
 console.log(testStr);
