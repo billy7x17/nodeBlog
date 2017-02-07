@@ -11,6 +11,7 @@
     "connect-mongo": ">= 0.1.7",
     "mongodb": ">= 0.9.9",
     "markdown": "*",
-    "uuid": "*"
+    "uuid": "*",
+    "crypto-js": "*"
   }
 }
