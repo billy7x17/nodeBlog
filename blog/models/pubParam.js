@@ -9,89 +9,86 @@ function pubParam() {
 
 }
 
-pubParam.generateSign = function (params) {
+/**
+ * Format: JSON
+ * Version: 邮件与短信不同
+ * AccessKeyId: 见aliyunSettings.js
+ * Signature: 生成
+ * SignatureMethod: 见aliyunSettings.js
+ * Timestamp: 当前时间，格式固定
+ * SignatureVersion: 见aliyunSettings.js
+ * SignatureNonce: 随机数，格式固定
+ */
+pubParam.commonParams = function (params) {
+    params.Format = aliyunSettings.Format;
+    if (params.Action == aliyunSettings.mailConfig.Action) {
+        params.Version = aliyunSettings.mailConfig.Version;
+    } else if (params.Action == aliyunSettings.smsConfig.Action) {
+        params.Version = aliyunSettings.smsConfig.Version;
+    }
+    params.AccessKeyId = aliyunSettings.AccessKeyId;
+    params.SignatureMethod = aliyunSettings.SignatureMethod;
+    params.Timestamp = generateUTCTime();
+    params.SignatureVersion = aliyunSettings.SignatureVersion;
+    params.SignatureNonce = Uuid.v4();
+    params.Signature = generateSign(params);
+    return params;
+};
+
+/**
+ * 生成签名
+ * @param params 所有请求参数
+ */
+function generateSign(params) {
 
     function percentEncode(originString) {
 
-        var result = new String("");
-
-        // console.log('origin string: ' + originString);
+        var result = "";
 
         for (var index in originString) {
-            // console.log('origin char: ' + originString[index]);
             if (originString[index].match('[A-Za-z0-9\-_\.~]')) {
                 result += originString[index];
             } else if (originString[index].match('["{:\,}\']')) {
                 result += '%25' + originString[index].charCodeAt(0).toString(16).toUpperCase();
             } else {
-                // console.log('encode char: ' + '%' + originString[index].charCodeAt(0).toString(16));
                 result += '%' + originString[index].charCodeAt(0).toString(16).toUpperCase();
             }
         }
         return result;
     }
 
-    function generateUTCTime() {
-
-        function fillOneZero(number) {
-            if (number < 10) {
-                return "0" + number;
-            } else {
-                return number;
-            }
-        }
-
-        var date = new Date();
-        var time = date.getUTCFullYear() + '-' + fillOneZero(date.getUTCMonth() + 1) + '-'
-            + fillOneZero(date.getUTCDate()) + 'T' + fillOneZero(date.getUTCHours()) + ':'
-            + fillOneZero(date.getUTCMinutes()) + ':' + fillOneZero(date.getUTCSeconds()) + 'Z';
-        return time;
-    }
-
-    /* 配置文件赋值 */
-    params.AccessKeyId = aliyunSettings.accessKeyId;
-    params.SignName = aliyunSettings.sms_signName;
-    params.TemplateCode = aliyunSettings.sms_templateCode;
-    params.Version = aliyunSettings.version;
-    params.SignatureVersion = aliyunSettings.signatureVersion;
-    params.SignatureNonce = Uuid.v4();
-    params.SignatureMethod = aliyunSettings.signatureMethod;
-    params.Timestamp = generateUTCTime();
-
     var signString = "POST&" + percentEncode("/") + "&";
 
-    var unsortedKeys = new Array;
+    var unsortedKeys = [];
 
-    for (var key in params) {
-        console.log(key);
-        unsortedKeys.push(key);
+    for (var paramIter in params) {
+        unsortedKeys.push(paramIter);
     }
-
-    console.log('keys:' + unsortedKeys);
 
     var sortedKeys = unsortedKeys.sort();
 
-    console.log('sorted keys:' + sortedKeys);
-
-    for (var key in sortedKeys) {
-        signString += percentEncode(encodeURIComponent(sortedKeys[key])) + percentEncode("=") + percentEncode(encodeURIComponent(params[sortedKeys[key]]));
-        if (key != sortedKeys.length - 1) {
+    for (var keyIter in sortedKeys) {
+        signString += percentEncode(encodeURIComponent(sortedKeys[keyIter])) + percentEncode("=") + percentEncode(encodeURIComponent(params[sortedKeys[keyIter]]));
+        if (keyIter != sortedKeys.length - 1) {
             signString += percentEncode("&");
         }
     }
 
-    console.log(signString);
+    return crypto.createHmac('sha1', aliyunSettings.AccessKeySecret + "&").update(signString).digest().toString('base64');
+}
 
-    return crypto.createHmac('sha1', aliyunSettings.accessKeySecret + "&").update(signString).digest().toString('base64');
-};
+function generateUTCTime() {
 
-console.log(encodeURIComponent('标签测试'));
+    function fillOneZero(number) {
+        if (number < 10) {
+            return "0" + number;
+        } else {
+            return number;
+        }
+    }
 
-var testStr = pubParam.generateSign({
-    'Action': 'SingleSendSms',
-    'RecNum': '18842330271',
-    'ParamString': '{"name":"n","emailAddr":"a@gmail.com","subject":"test","msg":"test"}',
-    'Format': 'JSON'
-
-});
-console.log(testStr);
+    var date = new Date();
+    return date.getUTCFullYear() + '-' + fillOneZero(date.getUTCMonth() + 1) + '-'
+        + fillOneZero(date.getUTCDate()) + 'T' + fillOneZero(date.getUTCHours()) + ':'
+        + fillOneZero(date.getUTCMinutes()) + ':' + fillOneZero(date.getUTCSeconds()) + 'Z';
+}
