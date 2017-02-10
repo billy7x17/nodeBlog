@@ -5,12 +5,22 @@
  * Created by Billy on 2017/1/25.
  */
 module.exports = {
-    accessKeyId: '3UpLTGggFSiYigKJ',
-    accessKeySecret: 'aH1mS9jG866ESl7PmfDC7uS2Q7fFVt',
-    sms_signName: '博客通知',
-    sms_templateCode: 'SMS_44435024',
-    sms_action: 'SingleSendSms',
-    version: '2016-09-27',
-    signatureVersion : '1.0',
-    signatureMethod : 'HMAC-SHA1'
+    AccessKeyId: '3UpLTGggFSiYigKJ',
+    AccessKeySecret: 'aH1mS9jG866ESl7PmfDC7uS2Q7fFVt',
+    SignatureVersion: '1.0',
+    SignatureMethod: 'HMAC-SHA1',
+    Format: 'JSON',
+    smsConfig: {
+        SignName: '博客通知',
+        TemplateCode: 'SMS_44435024',
+        Action: 'SingleSendSms',
+        Version: '2016-09-27'
+    },
+    mailConfig: {
+        Version: '2015-11-23',
+        Action: 'SingleSendMail',
+        AccountName: 'notice@billy119.cn',
+        ReplyToAddress: 'true',
+        AddressType: '1'
+    }
 };
