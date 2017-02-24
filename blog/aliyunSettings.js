@@ -21,6 +21,7 @@ module.exports = {
         Action: 'SingleSendMail',
         AccountName: 'notice@billy119.cn',
         ReplyToAddress: 'true',
-        AddressType: '1'
+        AddressType: '1',
+        ToAddress: 'billy17x7@126.com'
     }
 };

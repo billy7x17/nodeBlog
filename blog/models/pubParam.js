@@ -23,8 +23,14 @@ pubParam.commonParams = function (params) {
     params.Format = aliyunSettings.Format;
     if (params.Action == aliyunSettings.mailConfig.Action) {
         params.Version = aliyunSettings.mailConfig.Version;
+        params.ToAddress = aliyunSettings.mailConfig.ToAddress;
+        params.AccountName = aliyunSettings.mailConfig.AccountName;
+        params.ReplyToAddress = aliyunSettings.mailConfig.ReplyToAddress;
+        params.AddressType = aliyunSettings.mailConfig.AddressType;
     } else if (params.Action == aliyunSettings.smsConfig.Action) {
         params.Version = aliyunSettings.smsConfig.Version;
+        params.SignName = aliyunSettings.smsConfig.SignName;
+        params.TemplateCode = aliyunSettings.smsConfig.TemplateCode;
     }
     params.AccessKeyId = aliyunSettings.AccessKeyId;
     params.SignatureMethod = aliyunSettings.SignatureMethod;
