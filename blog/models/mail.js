@@ -3,6 +3,7 @@
  */
 module.exports = Mail;
 
+var sysCfg = require('../systemConfig');
 var mongodb = require('./db');
 var pubParam = require('./pubParam');
 var querystring = require('querystring');
@@ -57,18 +58,30 @@ Mail.prototype.send = function (callback) {
 
     var auth = new Buffer('li-zr:Huskarbitch119').toString('base64');
 
-    var post_opt = {
-        // host: "dm.aliyuncs.com",
-        host: "proxy.neusoft.com",
-        port: 8080,
-        method: "POST",
-        path: "dm.aliyuncs.com",
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            'Content-Length': Buffer.byteLength(post_data),
-            'Proxy-Authorization': 'Basic ' + auth
-        }
-    };
+    var post_opt;
+
+    if (sysCfg.useProxy) {
+        post_opt = {
+            host: "proxy.neusoft.com",
+            port: 8080,
+            method: "POST",
+            path: "dm.aliyuncs.com",
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Content-Length': Buffer.byteLength(post_data),
+                'Proxy-Authorization': 'Basic ' + auth
+            }
+        };
+    } else {
+        post_opt = {
+            host: "dm.aliyuncs.com",
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Content-Length': Buffer.byteLength(post_data)
+            }
+        };
+    }
 
     var post_req = http.request(post_opt, function (res) {
         console.log('STATUS:' + res.statusCode);
