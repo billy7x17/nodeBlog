@@ -4,6 +4,7 @@
 var User = require('../models/user.js');
 var Post = require('../models/post.js');
 var Article = require('../models/article.js');
+var Mail = require('../models/mail.js');
 var crypto = require('crypto');
 var markdown = require("markdown").markdown;
 module.exports = function (app) {
@@ -100,7 +101,29 @@ module.exports = function (app) {
 
     // 联系post请求
     app.post('/contact', function (req, res) {
-       //TODO: 数据持久化
+
+        var mail = new Mail({
+            name: req.body['name'],
+            email: req.body['email'],
+            subject: req.body['subject'],
+            message: req.body['message']
+        });
+
+        mail.save(function (err) {
+            if (err) {
+                req.flash('error', err);
+            }
+
+            mail.send(function (err) {
+                if (err) {
+                    req.flash('error', err);
+                }
+
+                req.flash('error', '消息发送成功');
+                res.redirect('/contact');
+
+            });
+        });
     });
 
 
