@@ -5,8 +5,8 @@
  * Created by Billy on 2017/1/25.
  */
 module.exports = {
-    AccessKeyId: '3UpLTGggFSiYigKJ',
-    AccessKeySecret: 'aH1mS9jG866ESl7PmfDC7uS2Q7fFVt',
+    AccessKeyId: '****',
+    AccessKeySecret: '********',
     SignatureVersion: '1.0',
     SignatureMethod: 'HMAC-SHA1',
     Format: 'JSON',
